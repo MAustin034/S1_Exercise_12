@@ -33,10 +33,10 @@
 
 
 //sets the date diaplayed in calender
-var thisDay = new Date("August 24, 2018");
+var thisDay = new Date();
 
 //write the calender to the eleemnt with the id "calender"
-document.getElementById("calender").innerHTML = createCalender(thisDay);
+document.getElementById("calendar").innerHTML = createCalendar(thisDay);
 
 /* Function to generate the calendar table */
 function createCalendar(calDate) {
@@ -116,12 +116,22 @@ function calDays(calDate) {
 
       // Write cells for each day of the month
       var totalDays = daysInMonth(calDate);
+
+      var highlightDay = calDate.getDate();
+
       for (var i = 1; i <= totalDays; i++) {
             day.setDate(i);
             weekDay = day.getDay();
 
             if (weekDay === 0) htmlCode += "<tr>";
-            htmlCode += "<td class='calendar_dates' >" + i + "</td>";
+            if (i === highlightDay) {
+                  htmlCode += "<td class='calendar_dates' id='calendar_today'>" + i + dayEvent[i] +
+                        "</td>";
+            } else {
+                  htmlCode += "<td class='calendar_dates'>" + i + dayEvent[i] +
+                        "</td>"
+            }
+
             if (weekDay === 6) htmlCode += "</tr>";
       }
       return htmlCode;
